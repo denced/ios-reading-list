@@ -44,4 +44,28 @@ class BookController {
             print("Error saving stars data: \(error)")
         }
     }
+    
+    
+    /*
+     Create a function called loadFromPersistentStore(). This function will be responsible for grabbing the property list stored on the device, and converting the information in it back into an array of Book objects so the application may display them on the table view, etc. To implement this:
+
+     Inside of a do-try-catch- block, unwrap the readingListURL property.
+     Still inside of the block, use the Data(contentsOf: URL) initializer to get access to the property list form of the books. Assign this data you initialize to a constant.
+     Initialize a PropertyListDecoder and assign it to a constant.
+     Create a constant called decodedBooks. Set its value by calling the decode method on the property list decoder you just created, and passing in the type it should be decoded as, and the data constant you made a couple steps ago. (Hint: the type parameter to this function should be [Book].self)
+     Set the value of the books property in the BookController to the decodedBooks you just made.
+     In the catch block, you should make an error message that is descriptive of what happened
+     */
+        func loadFromPersistentStore() {
+         guard let url = readingListURL else { return }
+        
+        do {
+            let data = try Data(contentsOf: url)
+            let decoder = PropertyListDecoder()
+            let decodedBooks = try decoder.decode([Book].self, from: data)
+            book = decodedBooks
+        } catch{
+            print("Error loading stars data: \(error)")
+        }
+    }
 }
