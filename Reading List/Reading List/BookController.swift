@@ -21,9 +21,26 @@ class BookController {
         let fileManager = FileManager.default
         
         guard let documents = try? fileManager.url(for: .documentDirectory, in: .userDomainMask , appropriateFor: nil, create: true) else { return nil }
-             // /Apps/Stars/Documents/stars.plist
+
              return documents.appendingPathComponent("ReadingList.plist")
     }
+    /*
+     Create a computed property called readBooks: [Book]. Inside of the closure of the computed property, you will need to return an array of all of the Book objects from the books array whose hasBeenRead property is true. The easiest way to do that is by using the .filter higher-order function.
+     */
+    private var readBooks:[Book] {
+        let readBooksArray = books.filter{$0.hasBeenRead == true}
+        return readBooksArray
+    }
+    
+    /*
+     Create a similar computed property called unreadBooks: [Book] that does the same thing, except it returns an array of Books whose hasBeenRead property is false.
+     */
+    
+    private var unreadBooks: [Book]{
+        let unreadBooksArray = books.filter{$0.hasBeenRead == false}
+        return unreadBooksArray
+    }
+    
     
     /*
      Create a function called saveToPersistentStore(). This function will be responsible for saving any changes to any Book object so that the changes will still be there when the user comes back into the application. You can implement this by doing the following:
