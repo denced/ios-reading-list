@@ -9,7 +9,7 @@
 import Foundation
 
 class BookController {
-    var book: [Book] = []
+    var books: [Book] = []
     
 //Create a computed property called readingListURL: URL?. Inside of the computed property, you should:
 //
@@ -38,7 +38,7 @@ class BookController {
         
         do {
         let encoder = PropertyListEncoder()
-        let booksdata = try encoder.encode(book)
+        let booksdata = try encoder.encode(books)
             try booksdata.write(to: url)
         } catch {
             print("Error saving stars data: \(error)")
@@ -63,9 +63,50 @@ class BookController {
             let data = try Data(contentsOf: url)
             let decoder = PropertyListDecoder()
             let decodedBooks = try decoder.decode([Book].self, from: data)
-            book = decodedBooks
+            books = decodedBooks
         } catch{
             print("Error loading stars data: \(error)")
         }
+    }
+    
+    /*
+     Like always, we will need to make CRUD methods. As we're using a form of persistence, be sure to call saveToPersistentStore() at the end of each of these or the changes will not persist:
+
+     Add a "Create" method that initializes a new Book object. In order to persist the newly created Book, call the saveToPersistentStore() method at the end of this function.
+     Add a "Delete" method that passes in a Book object as a parameter, and removes it from the books array.
+     We'll need two "Update" methods:
+     One is to update a Book object's hasBeenRead property. Call it updateHasBeenRead(for book: Book). It should simply swap the hasBeenRead value from false to true and vice-versa.
+     The other is to edit the Book's title and/or reasonToRead properties.
+     */
+    
+    func createBook(named title: String, reasonToRead reason: String, hasBeenRead hasRead: Bool) -> Book{
+        let book = Book(title: title, reasonToRead: reason, hasBeenRead: hasRead)
+        books.append(book)
+        
+        saveToPersistentStore()
+        return book
+    }
+    
+    func deleteBook(book: Book){
+        let bookToDelete = book
+        if let index = books.index(of: bookToDelete){
+        books.remove(at: index)
+        }
+        saveToPersistentStore()
+    }
+    
+    func updateHasBeenRead(for book: Book){
+        guard let index = books.firstIndex(of: book) else {return}
+        books[index].hasBeenRead.toggle()
+        saveToPersistentStore()
+    }
+    
+    func updateTitleOrReasonToRead(for book: Book, titleUpdate: String?, reasonUpdate: String?){
+        guard let index = books.firstIndex(of: book),
+            let title = titleUpdate,
+            let reason = reasonUpdate else {return}
+        books[index].title = title
+        books[index].reasonToRead = reason
+        saveToPersistentStore()
     }
 }
