@@ -11,11 +11,11 @@ import Foundation
 class BookController {
     var books: [Book] = []
     
-//Create a computed property called readingListURL: URL?. Inside of the computed property, you should:
-//
-//Get the user's document directory using the FileManager class.
-//Create a filename string for the plist, such as "ReadingList.plist"
-//Return a url that appends the filename string to the document directory. In doing this, you will create a full path wherein the Books in plist form will be stored on the user's device.
+////Create a computed property called readingListURL: URL?. Inside of the computed property, you should:
+////
+////Get the user's document directory using the FileManager class.
+////Create a filename string for the plist, such as "ReadingList.plist"
+////Return a url that appends the filename string to the document directory. In doing this, you will create a full path wherein the Books in plist form will be stored on the user's device.
     
     private var readingListURL: URL? {
         let fileManager = FileManager.default
@@ -27,7 +27,7 @@ class BookController {
     /*
      Create a computed property called readBooks: [Book]. Inside of the closure of the computed property, you will need to return an array of all of the Book objects from the books array whose hasBeenRead property is true. The easiest way to do that is by using the .filter higher-order function.
      */
-    private var readBooks:[Book] {
+    var readBooks: [Book] {
         let readBooksArray = books.filter{$0.hasBeenRead == true}
         return readBooksArray
     }
@@ -36,7 +36,7 @@ class BookController {
      Create a similar computed property called unreadBooks: [Book] that does the same thing, except it returns an array of Books whose hasBeenRead property is false.
      */
     
-    private var unreadBooks: [Book]{
+    var unreadBooks: [Book]{
         let unreadBooksArray = books.filter{$0.hasBeenRead == false}
         return unreadBooksArray
     }
