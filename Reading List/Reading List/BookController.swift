@@ -58,7 +58,7 @@ class BookController {
         let booksdata = try encoder.encode(books)
             try booksdata.write(to: url)
         } catch {
-            print("Error saving stars data: \(error)")
+            print("Error saving book data: \(error)")
         }
     }
     
@@ -82,7 +82,7 @@ class BookController {
             let decodedBooks = try decoder.decode([Book].self, from: data)
             books = decodedBooks
         } catch{
-            print("Error loading stars data: \(error)")
+            print("Error loading book data: \(error)")
         }
     }
     
@@ -96,20 +96,18 @@ class BookController {
      The other is to edit the Book's title and/or reasonToRead properties.
      */
     
-    func createBook(named title: String, reasonToRead reason: String, hasBeenRead hasRead: Bool) -> Book{
-        let book = Book(title: title, reasonToRead: reason, hasBeenRead: hasRead)
+    func createBook(book: Book){
         books.append(book)
-        
         saveToPersistentStore()
-        return book
+
     }
     
-    func deleteBook(book: Book){
-        let bookToDelete = book
-        if let index = books.index(of: bookToDelete){
-        books.remove(at: index)
-        }
+    func deleteBook(book: Book) {
+       if books.contains(book) {
+        guard let bookToRemove = books.index(of: book) else { return }
+        books.remove(at: bookToRemove)
         saveToPersistentStore()
+        }
     }
     
     func updateHasBeenRead(for book: Book){

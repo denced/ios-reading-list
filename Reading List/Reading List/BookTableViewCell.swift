@@ -10,14 +10,13 @@ import UIKit
 
 class BookTableViewCell: UITableViewCell {
 
-    var book: Book?
+    var book: Book? {
+        didSet{
+            updateViews()
+        }
+    }
     
-    /*
-     Create a new Swift file called "BookTableViewCellDelegate.swift", and create a protocol with the same name (minus the ".swift", of course).
-     Add a function called func toggleHasBeenRead(for cell: BookTableViewCell)
-     Back in the BookTableViewCell class, add a weak var delegate: BookTableViewCellDelegate? variable.
-     Call the delegate property's toggleHasBeenRead(for cell: ...) function in the action of the button.
-     */
+
     var delegate: BookTableViewCellDelegate?
     
     @IBOutlet weak var bookLabel: UILabel!
@@ -30,9 +29,8 @@ class BookTableViewCell: UITableViewCell {
     
     
     func updateViews() {
-        guard let book = book else {
-            return
-        }
+        guard let book = book else { return }
+
         bookLabel.text = book.title
         
         if book.hasBeenRead == true {

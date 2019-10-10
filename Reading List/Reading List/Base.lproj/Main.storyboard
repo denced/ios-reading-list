@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="kdg-GO-bJC" customClass="BookTableViewCell" customModule="Reading_List" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="titleCell" id="kdg-GO-bJC" customClass="BookTableViewCell" customModule="Reading_List" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="378.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kdg-GO-bJC" id="pAV-Lx-vkj">
@@ -61,7 +61,7 @@
                             <outlet property="delegate" destination="MMh-ap-0A2" id="ih1-DR-pkh"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="ccE-bv-8MR">
+                    <navigationItem key="navigationItem" title="Reading List" largeTitleDisplayMode="always" id="ccE-bv-8MR">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="IgQ-LI-0q2">
                             <connections>
                                 <segue destination="603-xg-jhb" kind="show" identifier="addDetailViewSegue" id="DxW-dy-A9Z"/>
